@@ -31,7 +31,7 @@ int SerialSettingsWidget::setupModbusPort()
 #ifdef Q_OS_WIN
         ui->serialPort->addItem( port.friendName );
 #else
-        ui->serialPort->addItem( port.physName );
+        ui->serialPort->addItem( port.portName );
 #endif
 		if( port.friendName == s.value( "serialinterface" ) )
 		{
@@ -100,7 +100,7 @@ void SerialSettingsWidget::changeSerialPort( int )
 			port = "\\\\.\\" + port;
 		}
 #else
-		const QString port = ports[iface].physName;
+		const QString port = ports[iface].portName;
 #endif
 
 		char parity;

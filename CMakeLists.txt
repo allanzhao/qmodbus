@@ -70,6 +70,12 @@ IF(WIN32)
 				-o${CMAKE_BINARY_DIR}/qmodbusrc.obj
 				-i${CMAKE_BINARY_DIR}/qmodbus.rc
 			DEPENDS ${CMAKE_BINARY_DIR}/qmodbus.rc)
+ELSEIF(APPLE)
+	SET(qmodbus_SOURCES ${qmodbus_SOURCES} 3rdparty/qextserialport/posix_qextserialport.cpp 3rdparty/qextserialport/qextserialenumerator_osx.cpp)
+	ADD_DEFINITIONS(-D_TTY_POSIX_)
+	LINK_LIBRARIES("-framework CoreFoundation")
+	LINK_LIBRARIES("-framework IOKit")
+	ADD_DEFINITIONS(-DHAVE_STRLCPY)
 ELSE(WIN32)
 	SET(qmodbus_SOURCES ${qmodbus_SOURCES} 3rdparty/qextserialport/posix_qextserialport.cpp 3rdparty/qextserialport/qextserialenumerator_unix.cpp)
 	ADD_DEFINITIONS(-D_TTY_POSIX_)
